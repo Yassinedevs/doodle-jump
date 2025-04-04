@@ -9,19 +9,26 @@ public class LevelGenerator : MonoBehaviour {
     public GameObject boostPlatformPrefab;
     public GameObject brownPlatformPrefab;
     public GameObject whitePlatformPrefab;
+    public GameObject platformFromagePrefab;
+    public GameObject platformTomatePrefab;
+    public GameObject platformThonPrefab;
+    public GameObject platformPainPrefab;
+    public GameObject platformSaladePrefab;
 
     public int numberOfPlatforms = 20;
     public float levelWidth = 3f;
     public float generationThreshold = 5f;
-    public float minPlatformSpacing = 5f;
-    public float maxPlatformSpacing = 40f;
+    public float minPlatformSpacing = 1f;
+    public float maxPlatformSpacing = 3f;
     private float highestY;
     private float lastNonBrownPlatformY;
+    private int score = 0;
 
     private List<GameObject> activePlatforms = new List<GameObject>();
     public Transform player;
 
     private int level = 1;
+    private HashSet<string> collectedIngredients = new HashSet<string>();
 
     void Start() {
         Vector3 spawnPosition = new Vector3();
@@ -36,6 +43,10 @@ public class LevelGenerator : MonoBehaviour {
     }
 
     void Update() {
+        if (player.position.y > highestY) {
+            score = (int)player.position.y; // Score basé sur la hauteur
+        }
+
         if (player.position.y + generationThreshold > highestY) {
             Vector3 spawnPosition = new Vector3(Random.Range(-levelWidth, levelWidth), lastNonBrownPlatformY + GetPlatformSpacing(), 0);
             SpawnPlatform(spawnPosition);
@@ -58,15 +69,13 @@ public class LevelGenerator : MonoBehaviour {
         GameObject platformToSpawn;
 
         if (rand < 0.05f) {
-            if (rand < 0.025f) {
-                platformToSpawn = boostPlatformPrefab; // 2.5% chance
-            } else {
-                platformToSpawn = miniBoostPlatformPrefab; // 2.5% chance
-            }
+            platformToSpawn = (rand < 0.025f) ? boostPlatformPrefab : miniBoostPlatformPrefab;
+        } else if (rand < 0.10f) {
+            platformToSpawn = GetRandomIngredientPlatform();
         } else if (level == 1) {
-            platformToSpawn = platformPrefab; // Niveau 1 : uniquement plateformes vertes, plus nombreuses
+            platformToSpawn = platformPrefab;
         } else if (level == 2) {
-            platformToSpawn = (rand < 0.15f) ? brownPlatformPrefab : platformPrefab; // Niveau 2 : plateformes marrons commencent à apparaître
+            platformToSpawn = (rand < 0.15f) ? brownPlatformPrefab : platformPrefab;
         } else {
             if (rand < 0.15f) {
                 platformToSpawn = brownPlatformPrefab;
@@ -81,19 +90,39 @@ public class LevelGenerator : MonoBehaviour {
         activePlatforms.Add(newPlatform);
         highestY = position.y;
 
-        // Ne met à jour lastNonBrownPlatformY que si la plateforme n'est pas marron
         if (platformToSpawn != brownPlatformPrefab) {
             lastNonBrownPlatformY = position.y;
         }
     }
 
+    GameObject GetRandomIngredientPlatform() {
+        float rand = Random.value;
+        if (rand < 0.2f) return platformFromagePrefab;
+        if (rand < 0.4f) return platformTomatePrefab;
+        if (rand < 0.6f) return platformThonPrefab;
+        if (rand < 0.8f) return platformPainPrefab;
+        return platformSaladePrefab;
+    }
+
     float GetPlatformSpacing() {
         if (level == 1) {
-            return Random.Range(minPlatformSpacing, maxPlatformSpacing / 2); // Plus de plateformes, espacement réduit
+            return Random.Range(minPlatformSpacing, maxPlatformSpacing / 2);
         } else if (level == 2) {
-            return Random.Range(maxPlatformSpacing / 2, maxPlatformSpacing * 0.8f); // Moins de plateformes
+            return Random.Range(maxPlatformSpacing / 2, maxPlatformSpacing * 0.8f);
         } else {
-            return maxPlatformSpacing; // Niveau 3 : espacement maximum
+            return maxPlatformSpacing;
         }
+    }
+
+    public void CollectIngredient(string ingredient) {
+        collectedIngredients.Add(ingredient);
+        if (collectedIngredients.Count == 5) {
+            score += 1000; // Bonus de 1000 points
+            collectedIngredients.Clear();
+        }
+    }
+
+    public int GetScore() {
+        return score;
     }
 }

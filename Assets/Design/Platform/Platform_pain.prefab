@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 114069937898213426}
   - component: {fileID: 251253403395048330}
   m_Layer: 0
-  m_Name: Boost platform
+  m_Name: Platform_pain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a00d027b4c61f1141951c7251dff63e0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 71c99df9a3a5de84f8a5839e0ba14f41, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -127,8 +127,9 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.42614952, y: 0.11685395}
-  - {x: 0.45515195, y: 0.116854}
+  - {x: -0.45875844, y: -0.19293046}
+  - {x: 0.56113064, y: -0.19836521}
+  - {x: 0.56113064, y: -0.19836517}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -145,11 +146,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e41f9da81196884e93666d20f88d3e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 30
+  jumpForce: 10
   isBrownPlatform: 0
   isWhitePlatform: 0
-  isIngredientPlatform: 0
-  ingredientType: 
+  isIngredientPlatform: 1
+  ingredientType: pain
   normalPlatformPrefab: {fileID: 1733260991004600, guid: 829cbdee05a7bd84cbba53738ada8e4c, type: 3}
 --- !u!251 &251253403395048330
 PlatformEffector2D:

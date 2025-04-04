@@ -153,6 +153,11 @@ MonoBehaviour:
   boostPlatformPrefab: {fileID: 1733260991004600, guid: 5c7a7b2a2e0acf84e980a9fc81488cba, type: 3}
   brownPlatformPrefab: {fileID: 1733260991004600, guid: 3fd775f68ed0ccf46921f29fd5fbc413, type: 3}
   whitePlatformPrefab: {fileID: 1733260991004600, guid: 8a23313191cbe8c41bdb1a7d70c47e36, type: 3}
+  platformFromagePrefab: {fileID: 1733260991004600, guid: 49d078c3fff331d4080270f34bf35e27, type: 3}
+  platformTomatePrefab: {fileID: 1733260991004600, guid: fd9863ed62bf64444b4cc2b37b2d5e3c, type: 3}
+  platformThonPrefab: {fileID: 1733260991004600, guid: bc6915cc16a247847ab090745787854a, type: 3}
+  platformPainPrefab: {fileID: 1733260991004600, guid: f543b120c3527a448a7663a5e8bb01af, type: 3}
+  platformSaladePrefab: {fileID: 1733260991004600, guid: 5529ddf5b26917546b6998b60e08114a, type: 3}
   numberOfPlatforms: 200
   levelWidth: 3
   generationThreshold: 5
@@ -389,6 +394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1134463119}
+  margin: 1
 --- !u!1 &670120519
 GameObject:
   m_ObjectHideFlags: 0
